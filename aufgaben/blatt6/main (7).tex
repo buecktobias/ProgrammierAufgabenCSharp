@@ -1,0 +1,289 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, xcolor, fancyhdr, enumitem, geometry, listings, titling, setspace, microtype, titlesec, hyperref, parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{changepage} % For indentation
+
+% Page geometry
+\geometry{a4paper, top=2cm, left=2cm, right=2cm, bottom=2cm}
+
+% Font selection: Modern sans-serif font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault} % Use sans-serif globally
+
+% Header and footer styling
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Programmieren Tutorium}}
+\fancyhead[R]{\textbf{Tobias Bück, Sam Haghighi}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[C]{%
+  \raisebox{2em}{\parbox{\textwidth}{%
+      \small © Tobias Bück, CC BY 4.0.%
+  }}%
+  \thepage
+}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Title customization
+\pretitle{\vspace{-2em} \begin{center}\LARGE\bfseries}
+\posttitle{\end{center}\vspace{1em}}
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+% Author and date styling
+\renewcommand{\maketitle}{
+    \begin{center}
+        {\LARGE \bfseries \thetitle \par}
+        \vspace{0.25em}
+        {\small Datum: \today \par}
+        \vspace{0.5em}
+    \end{center}
+}
+
+
+
+% Custom colors and refined code style for C#
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{darkblue}{rgb}{0, 0.2, 0.5}
+\definecolor{darkgreen}{rgb}{0, 0.5, 0.2}
+\definecolor{keywordcolor}{rgb}{0, 0.4, 0.8}
+\definecolor{stringcolor}{rgb}{0.5, 0, 0.5}
+\definecolor{commentcolor}{rgb}{0.25, 0.5, 0.25}
+\definecolor{identifiercolor}{rgb}{0.6, 0.2, 0.2}
+
+\lstset{
+    language=[Sharp]C,
+    basicstyle=\small\ttfamily,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=tb,
+    framesep=6pt,
+    rulecolor=\color{gray},
+    backgroundcolor=\color{lightgray},
+    stringstyle=\color{stringcolor}\ttfamily,
+    commentstyle=\color{commentcolor}\ttfamily,
+    keywordstyle=\color{keywordcolor}\bfseries,
+    identifierstyle=\color{identifiercolor},
+    showstringspaces=false,
+    showspaces=false,
+    showtabs=false,
+    xleftmargin=12pt,
+    framexleftmargin=12pt,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morekeywords={abstract, event, new, struct, var,
+        as, explicit, null, switch,
+        base, extern, object, this,
+        bool, false, operator, throw,
+        break, finally, out, true,
+        byte, fixed, override, try,
+        case, float, params, typeof,
+        catch, for, private, uint,
+        char, foreach, protected, ulong,
+        checked, goto, public, unchecked,
+        class, if, readonly, unsafe,
+        const, implicit, ref, ushort,
+        continue, in, return, using,
+        decimal, int, sbyte, virtual,
+        default, interface, sealed, volatile,
+        delegate, internal, short, void,
+        do, is, sizeof, while,
+        double, lock, stackalloc,
+        else, long, static,
+        enum, namespace, string},
+}
+
+% Custom environments and commands
+\newenvironment{aufgabe}[2]
+  {%
+   \section*{Aufgabe #1: #2}
+   \vspace{0.5em}
+   \begin{adjustwidth}{1cm}{}  % Indent by 1 cm
+  }
+  {%
+   \end{adjustwidth}
+  }
+  
+\newcommand{\subaufgabe}[1]{
+    #1
+}
+
+\newcommand{\hint}[1]{
+    \vspace{0.5em}
+    \textbf{\textit{Hinweis:}} #1
+    \vspace{0.5em}
+}
+
+\begin{document}
+
+\title{Programmieren Tutorium \\ \large Arbeitsblatt 6}
+\author{Tobias Bück, Sam Haghighi}
+\date{\today}
+\maketitle
+
+\begin{aufgabe}{1}{Klausuraufgaben aus Programmieren I WS 2018}
+\textbf{Übersetzen Sie die folgenden kursiv gedruckten Sätze in C\#-Anweisungen.}
+
+\subaufgabe{a) Die Variablen \texttt{i1} und \texttt{i2} enthalten ganze Zahlen.}
+\textit{Wenn die Differenz aus \texttt{i1} und \texttt{i2} kleiner oder gleich 2 ist, dann wird die Hälfte von \texttt{i1} ausgegeben. Andernfalls wird \texttt{i2} verdoppelt.}
+
+\subaufgabe{b) Die Variable \texttt{d1} ist eine Gleitpunktzahl.}
+\textit{Solange \texttt{d1} größer als 5 ist, wird das gemacht: Der Wert von \texttt{d1} wird um 3 vermindert. Wenn dann das Quadrat von \texttt{d1} kleiner als 10 ist, wird das Dreifache von \texttt{d1} ausgegeben.}
+
+\subaufgabe{c) Die Variable t1 ist vom Typ string, anz von Typ int. Übersetzen Sie: Für jedes
+Element des Strings wird das gemacht: Wenn der ASCII-Wert des Elements gerade ist,
+wird der Wert von anz um 3 erhöht.}
+
+\subaufgabe{d) Die Variable iifeld ist vom Typ List<int>. Übersetzen Sie: Für alle Elemente von
+iifeld vom ersten bis zum letzten wird das gemacht: Wenn das aktuelle Element eine
+Zahl zwischen 65 und 91 (beides einschlieÿlich) ist, wird der Buchstabe ausgegeben, dessen
+ASCII-Wert dem Zahlenwert entspricht.}
+\\
+\\
+\hint{
+Mit (char) <INTEGER> bekommst du den ASCII Buchstaben von einer Zahl. 
+z.B (char) 65 => A.
+}
+\\
+\subaufgabe{e) Die Variable \texttt{bfeld} ist vom Typ \texttt{bool[]}.}
+\textit{Für jedes fünfte Element von \texttt{bfeld} wird das gemacht: Wenn der Index durch 2 teilbar ist, wird das Element auf \texttt{true} gesetzt, sonst auf \texttt{false}.}
+\end{aufgabe}
+
+\begin{aufgabe}{2}{structs/Klassen definieren}
+\hint{In C\# wird ein \texttt{struct} wie folgt definiert:}
+\begin{lstlisting}
+public struct NameDesStructs {
+    public TYP AttributName1;
+    public TYP AttributName2;
+}
+\end{lstlisting}
+\newpage
+\hint{In C\# wird eine Instanz/Objekt einer Klasse/struct wie folgt erstellt:}
+\begin{lstlisting}
+var variablenName = new NameDesStructs();
+\end{lstlisting}
+\texttt{Oder so:}
+\begin{lstlisting}
+NameDesStructs variablenName = new NameDesStructs();
+\end{lstlisting}
+\subaufgabe{a)
+Definiere eine Struktur/struct/Klasse \texttt{Person}. Erstelle dann zwei Personen-Objekte/Instanzen.}
+
+\subaufgabe{b) Füge ein Feld \texttt{Name} zur Struktur/struct/Klasse \texttt{Person} hinzu. Erstelle dann zwei Personen Objekte und weise ihnen verschiedene Namen zu. Gib die Namen der beiden Personen auf der Konsole aus.}
+
+\subaufgabe{c) Struct \texttt{Person} mit Name und Alter: \\
+Erweitere die Struktur \texttt{Person} um ein weiteres Feld \texttt{Alter}. Erstelle ein \texttt{Person}-Objekt mit dem Namen \"Hans\" und einem Alter von 20. Simuliere einen Geburtstag, indem du das Alter um 1 erhöhst, und gib das Alter vor und nach dem Geburtstag auf der Konsole aus.
+
+}
+
+\subaufgabe{d) Vergleich von zwei Personen nach Alter. \\
+Verwende die Struktur \texttt{Person} mit den Feldern \texttt{Name} und \texttt{Alter}. Frage den Namen und das Alter von zwei Personen ab. Vergleiche das Alter der beiden Personen und gib aus: Person X ist älter als Person Y
+ oder Person X und Y sind gleich alt. (Entweder direkt in der Main oder schreibe eine einfache statische Methode}
+
+
+\subaufgabe{e) Liste von Personen (anspruchsvoll)\\}
+\hint{ In C\# wird eine Liste von Personen wie folgt erstellt}
+\begin{lstlisting}
+var personenListe = new List<Person>();
+\end{lstlisting}
+Erstelle eine leere Liste von Personen. Füge anschließend zwei Personen zur Liste hinzu: Martin mit dem Alter 22 und Julian mit dem Alter 40. Gib das Alter der Person an Position 0 in der Liste, auf der Konsole aus.
+
+\subaufgabe{f) Suche in der Liste (schwer)\\
+Du hast eine Liste von Personen. Schreibe eine statische Funktion, die überprüft, ob eine Person mit einem bestimmten Alter X in der Liste existiert.}
+
+\subaufgabe{g) Verbessertes Personen erstellen (schwer): \\
+Schreibe eine Konstruktor für Person. An diesen soll der Name und das Alter übergeben werden.
+}
+
+\hint{In C\# definiert man einen Konstruktor folgendermaßen:}
+\begin{lstlisting}
+public struct Person{
+    // Attribute
+    public Person(TYP parameterName1, TYP parameterName2){
+        // Initialisieren des Objekts, Erstellen des Objekts
+    }
+}
+\end{lstlisting}
+
+\subaufgabe{h) Personen ausgeben (schwer): \\
+Implementiere eine ToString Methode in der Klasse \texttt{Person}. Diese soll ausgeben: Hans ist 18 Jahre alt.
+}
+
+\hint{Um die Ausgabe eines Objekts zu verändern, definiert man die ToString Methode}
+\begin{lstlisting}
+public struct Person{
+    public override string ToString(){
+        // Wichtig du musst einen String returnen, keine Console.WriteLine Statements
+        // Meistens gibt man die Attribute an! Z.B
+        return $"Person: Vorname {this.FirstName}"
+    }
+}
+class Program{
+    public static void Main(){
+        var person = new Person("Hans", 20);
+        Console.WriteLine(person);
+    }
+}
+\end{lstlisting}
+
+\end{aufgabe}
+
+\begin{aufgabe}{3}{structs und Funktionen}
+
+\subaufgabe{a) Struct \texttt{Handy} mit Ladestand}
+Erstelle eine Struktur \texttt{Handy} mit einem Feld \texttt{Akkustand}, der den aktuellen Ladestand in Prozent von 0 bis 100 speichert. Erstelle ein \texttt{Handy}-Objekt und setze den Akkustand auf 100.
+
+\subaufgabe{b) Methode zum Aufladen des Akkus \\
+Schreibe eine Methode \texttt{AkkuAufladen}, die den Akkustand des Handys um 1\% erhöht.
+}
+
+\subaufgabe{c) Verhindere, dass der Akkustand über 100\% steigt, indem die Funktion \texttt{AkkuAufladen} aus \textit{b)} bei 100\% keine weitere Erhöhung vornimmt.
+}
+
+\subaufgabe{d) Liste von Handys
+Erstelle eine Liste von Handys und füge 3 \texttt{Handy}-Objekte mit verschiedenen Akkuständen hinzu.
+Lade das Handy an Index 2 der Liste auf. Gebe den Akku Stand des Handys vor und nach dem Laden aus.
+}
+
+\hint{Erstellen einer Handy Liste:}
+\begin{lstlisting}
+var handys = new List<Handy>();
+var handy1 = new Handy();
+handy1.Akku = 20; 
+\end{lstlisting}
+
+\subaufgabe{e) Erstellen von 100 Handys mit unterschiedlichen Akkuständen (anspruchsvoll) \\
+Erstelle eine Liste mit 100 \texttt{Handy}-Objekten. Das erste Handy soll einen Akkustand von 0 haben, das zweite 1, das dritte 2 usw., bis zum letzten Handy mit einem Akkustand von 99.
+}
+
+\subaufgabe{f) Schreibe einen Konstruktor und ToString (schwer)\\
+Überlege dir einen sinnvollen Konstruktor und eine ToString MEthode für das Handy.
+}
+
+\subaufgabe{d) Größter Akkustand in der Liste (schwer):\\
+Finde den größten Akkustand in der Liste von Handys und gib den Akkustand des Handys mit der höchsten Ladung aus.
+}
+
+\end{aufgabe}
+
+\begin{aufgabe}{4}{Erstelle eine Anwesenheitsliste}
+
+Erstelle ein Anwesenheitsliste struct. Das struct soll eine Liste an Personen als Attribut haben.
+
+\subaufgabe{a) Schreibe einen Konstruktor, welcher keine Argumente/Parameter übergeben bekommt}
+
+\subaufgabe{b) Schreibe eine personHinzufügen(Person person) Methode/Funktion}
+
+\subaufgabe{c) Schreibe eine istPersonAnwesend(Person person) Methode/Funktion}
+
+\subaufgabe{d) Schreibe eine berechneAnzahlAnwesendePersonen() Methode/Funktion}
+
+\end{aufgabe}
+
+\end{document}

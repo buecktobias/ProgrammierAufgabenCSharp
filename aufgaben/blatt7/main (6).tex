@@ -1,0 +1,389 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, xcolor, fancyhdr, enumitem, geometry, listings, titling, setspace, microtype, titlesec, hyperref, parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{changepage} % For indentation
+\usepackage{xcolor}
+% Page geometry
+\geometry{a4paper, top=2cm, left=1.5cm, right=1.5cm, bottom=2cm}
+
+% Font selection: Modern sans-serif font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault} % Use sans-serif globally
+
+% Header and footer styling
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Programmieren Tutorium}}
+\fancyhead[R]{\textbf{Tobias Bück, Sam Haghighi}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[C]{%
+  \raisebox{2em}{\parbox{\textwidth}{%
+      \small © Tobias Bück, CC BY 4.0.%
+  }}%
+  \thepage
+}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Title customization
+\pretitle{\vspace{-2em} \begin{center}\LARGE\bfseries}
+\posttitle{\end{center}\vspace{1em}}
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+% Author and date styling
+\renewcommand{\maketitle}{
+    \begin{center}
+        {\LARGE \bfseries \thetitle \par}
+        \vspace{0.25em}
+        {\small Datum: \today \par}
+        \vspace{0.5em}
+    \end{center}
+}
+
+
+
+% Custom colors and refined code style for C#
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{darkblue}{rgb}{0, 0.2, 0.5}
+\definecolor{darkgreen}{rgb}{0, 0.5, 0.2}
+\definecolor{keywordcolor}{rgb}{0, 0.4, 0.8}
+\definecolor{stringcolor}{rgb}{0.5, 0, 0.5}
+\definecolor{commentcolor}{rgb}{0.25, 0.5, 0.25}
+\definecolor{identifiercolor}{rgb}{0.6, 0.2, 0.2}
+
+\lstset{
+    language=[Sharp]C,
+    basicstyle=\small\ttfamily,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=tb,
+    framesep=6pt,
+    rulecolor=\color{gray},
+    backgroundcolor=\color{lightgray},
+    stringstyle=\color{stringcolor}\ttfamily,
+    commentstyle=\color{commentcolor}\ttfamily,
+    keywordstyle=\color{keywordcolor}\bfseries,
+    identifierstyle=\color{identifiercolor},
+    showstringspaces=false,
+    showspaces=false,
+    showtabs=false,
+    xleftmargin=10pt,
+    framexleftmargin=10pt,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morekeywords={abstract, event, new, struct, var,
+        as, explicit, null, switch, Console,
+        base, extern, object, this,
+        bool, false, operator, throw,
+        break, finally, out, true,
+        byte, fixed, override, try,
+        case, float, params, typeof,
+        catch, for, private, uint,
+        char, foreach, protected, ulong,
+        checked, goto, public, unchecked,
+        class, if, readonly, unsafe,
+        const, implicit, ref, ushort,
+        continue, in, return, using,
+        decimal, int, sbyte, virtual,
+        default, interface, sealed, volatile,
+        delegate, internal, short, void,
+        do, is, sizeof, while,
+        double, lock, stackalloc,
+        else, long, static,
+        enum, namespace, string},
+}
+
+% Custom environments and commands
+\newenvironment{aufgabe}[2]
+  {%
+   \section*{Aufgabe #1: #2}
+   \vspace{0.5em}
+   \begin{adjustwidth}{1cm}{}  % Indent by 1 cm
+  }
+  {%
+   \end{adjustwidth}
+  }
+  
+\newcommand{\subaufgabe}[1]{
+    #1
+}
+
+\newcommand{\hint}[1]{
+    \vspace{0.5em}
+    \textbf{\textit{Hinweis:}} #1
+    \vspace{0.5em}
+}
+
+\begin{document}
+
+\title{Programmieren Tutorium \\ \large Arbeitsblatt 7}
+\author{Tobias Bück, Sam Haghighi}
+\date{\today}
+\maketitle
+
+\begin{aufgabe}{1}{Wie Klausuraufgabe 1}
+Übersetzen Sie die folgenden Sätze in C\#-Anweisungen.
+
+\subaufgabe{a)
+Die Variablen z1 und z2 enthalten ganze Zahlen. Übersetzen Sie: Wenn z2 kleiner oder gleich
+z1 und außerdem z2 größer als 4 ist, wird z1 der Kehrwert von z2 zugewiesen (also 1 geteilt durch z2). Dabei werden die Nachkommastellen abgeschnitten.}
+
+\subaufgabe{b)
+Die Variable st ist ein String. Übersetzen Sie: So lange die Länge von st nicht durch 7
+teilbar ist, wird ein Fragezeichen an den String angehängt
+}
+
+\subaufgabe{c)
+Die Variable df ist ein dynamisches Feld von Gleitpunktzahlen. Übersetzen Sie: Für alle
+Zahlen des Feldes wird das Vierfache des Feldelementes ausgegeben.
+}
+
+\subaufgabe{d)
+Die Variable sfeld ist ein Stringfeld vom Typ List<string>. Übersetzen Sie: Für jedes
+Element des Feldes wird das gemacht: Wenn die Länge des Elements größer als 5 ist wird an das Element ein Punkt angehängt.
+}
+\end{aufgabe}
+\begin{aufgabe}{2}{User - Konstruktor - To String - Properties}
+\hint{In C\# wird ein \texttt{struct} wie folgt definiert:}
+\begin{lstlisting}
+public struct NameDesStructs {
+    public TYP AttributName1;
+    public TYP AttributName2;
+}
+\end{lstlisting}
+\hint{In C\# wird eine Instanz/Objekt einer Klasse/struct wie folgt erstellt:}
+\begin{lstlisting}
+var variablenName = new NameDesStructs();
+\end{lstlisting}
+\texttt{Oder so:}
+\begin{lstlisting}
+NameDesStructs variablenName = new NameDesStructs();
+\end{lstlisting}
+\subaufgabe{a)
+Definiere eine Struktur/struct/Klasse \texttt{User}. Erstelle dann zwei User-Objekte/Instanzen.}
+
+\subaufgabe{b) Füge ein Feld \texttt{Vorname} zum struct \texttt{User} hinzu. Erstelle dann zwei User Objekte und weise ihnen verschiedene Vornamen zu. Gib die Vornamen der beiden Personen auf der Konsole aus.}
+
+\subaufgabe{c) Füge ein Feld \texttt{Nachname} zum struct \texttt{User} hinzu.}
+
+
+\subaufgabe{d) Verbessertes User erstellen: \\
+Schreibe eine Konstruktor für User. An diesen soll der Vor und Nachname übergeben werden.
+}
+
+\hint{In C\# definiert man einen Konstruktor folgendermaßen:}
+\begin{lstlisting}
+public struct User{
+    // Attribute
+    public User(TYP parameterName1, TYP parameterName2){
+        // Initialisieren des Objekts, Erstellen des Objekts
+    }
+}
+\end{lstlisting}
+
+\subaufgabe{e) Personen ausgeben: \\
+Implementiere eine ToString Methode in der Klasse \texttt{Person}. Diese soll ausgeben: User: Udo Müller.
+}
+
+\hint{Um die Ausgabe eines Objekts zu verändern, definiert man die ToString Methode}
+\begin{lstlisting}
+public struct Person{
+    public override string ToString(){
+        // Wichtig du musst einen String returnen, keine Console.WriteLine Statements
+        // Meistens gibt man die Attribute an! Z.B
+        return $"Person: Vorname {this.FirstName}"
+    }
+}
+class Program{
+    public static void Main(){
+        var person = new Person("Hans", 20);
+        Console.WriteLine(person);
+    }
+}
+\end{lstlisting}
+\subaufgabe{f) GanzerName Property: \\
+Implementiere eine Property Ganzer Name, welche den Ganzen Namen einer Property Zurückgibt. Über die Property Ganzer Name darf kein Wert gesetzt werden.
+}
+\\
+\hint{
+Nutze eine Property/Eigenschaft. Sie verhalten sich wie Variablen, sind jedoch sicherer und flexibler, da sie mit Logik ausgestattet werden können, um Werte zu prüfen oder zusätzliche Aktionen auszuführen.
+}
+\\
+\textbf{Allgemein:}
+\begin{lstlisting}
+// In einem Struct oder einer Klasse
+public TYP Prop
+{
+  get {  // get ist optional
+    // Mache irgendetwas
+    return someValue; 
+  }
+  set { // set ist optional
+    // Bekommt unsichtbaren Parameter value
+    // Mache irgendetwas Meistens veraendern von Variablen
+  }
+}
+// In Main Methode
+Console.WriteLine(meinStruct.Prop) // ruft get von Prop auf
+meinStruct.Prop = 42; // ruft set von Prop mit value=42 auf
+
+\end{lstlisting}
+
+\newpage
+\textbf{Beispiel: Wir haben eine Thermometer Klasse}
+\begin{lstlisting}
+struct Thermometer{
+    public double celsius; 
+    public double Fahrenheit
+    {
+      get { return (celsius * 9/5)+32; } //  Celsius -> Fahrenheit
+      set { celsius = (value - 32)*5/9; } // Fahrenheit -> Celsius
+    }
+}
+// In Main Methode
+var thermometer = new Thermometer();
+thermometer.celsius = 30;
+Console.WriteLine(thermometer.Fahrenheit); // 86
+thermometer.Fahrenheit = 77
+Console.WriteLine(thermometer.celsius); // 25
+\end{lstlisting}
+
+\subaufgabe{g) GanzerName Property mit set: \\
+Füge zu der GanzenNamen Property eine set Methode bzw. einen set Zugriff hinzu.
+}
+\\
+
+\hint{Die Methode .Split(seperator) teilt einen Text in eine string Liste auf. Z.B:}
+\begin{lstlisting}
+var datum = "26.11.2024";
+
+string[] datumsTeile = datum.Split(".");
+string tag = datumsTeile[0]; // 26
+string monat = datumsTeile[1]; // 11
+string jahr = datumsTeile[2]; // 2024
+\end{lstlisting}
+
+\end{aufgabe}
+\newpage
+\begin{aufgabe}{3}{Dateien bearbeiten: Lesen, Zählen, Schreiben}
+\hint{In C\# kann eine Datei mit der \texttt{StreamReader}- oder \texttt{StreamWriter}-Klasse verarbeitet werden. Nach dem Gebrauch ist es wichtig, die Datei zu schließen, um Ressourcen freizugeben.}
+\\
+\textbf{Dateien lesen}
+\\
+Zeichen für Zeichen:
+\begin{lstlisting}
+    var filePath = "sample.txt";
+    var reader = new StreamReader(filePath);
+    int character;
+    while ((character = reader.Read()) != -1)
+    {
+        // Mache etwas!
+    }
+    reader.Close();
+\end{lstlisting}
+
+Zeile für Zeile:
+\begin{lstlisting}
+    var filePath = "sample.txt";
+    var reader = new StreamReader(filePath);
+    string line;
+    while ((line = reader.ReadLine()) != null)
+    {
+        // Mache etwas!
+    }
+    reader.Close();
+\end{lstlisting}
+Nutze für folgende Aufgaben diese Beispiel Log Datei
+\begin{lstlisting}[
+    basicstyle=\fontsize{9pt}{11pt}\normalfont\ttfamily\color{darkgray},
+    breaklines=true,
+    frame=tb,
+    framesep=2pt,
+]
+# Activity Log
+Logged In
+Error While User Logged In: Invalid Password
+Logged In
+Logged In
+\end{lstlisting}
+\subaufgabe{a) Dateiinhalt auf der Konsole ausgeben
+Erstelle eine Methode, die den gesamten Inhalt einer Datei Zeile für Zeile auf der Konsole ausgibt.
+}
+
+\subaufgabe{b) Anzahl von Buchstaben L in einer Datei zählen \\
+Erstelle eine Methode, die alle Buchstaben \texttt{L} in einer Datei zählt.
+}
+
+\subaufgabe{c) Anzahl von \texttt{Logged In} - Zeilen in einer Datei zählen \\
+Erstelle eine Methode, die die Anzahl der Zeilen, welche exakt \texttt{Logged In} sind.
+}
+
+\subaufgabe{d) Eine Datei mit Zahlen befüllen \\
+Erstelle eine Methode, die eine Datei \texttt{numbers.txt} erstellt und die Zahlen von 0 bis 1000 in die Datei schreibt.
+}
+
+\hint{Eine Datei erstellen, in eine Datei schreiben:}
+\begin{lstlisting}
+var filePath = "datei.txt";
+var writer = new StreamWriter(filePath);
+// Mache etwas: Write, WriteLine wie bei Console.Write
+writer.Write("")
+writer.WriteLine("")
+writer.Close();
+\end{lstlisting}
+
+\end{aufgabe}
+
+\begin{aufgabe}{4}{structs und Funktionen}
+
+\subaufgabe{a) Struct \texttt{Handy} mit Ladestand}
+Erstelle eine Struktur \texttt{Handy} mit einem Feld \texttt{Akkustand}, der den aktuellen Ladestand in Prozent von 0 bis 100 speichert. Erstelle ein \texttt{Handy}-Objekt und setze den Akkustand auf 100.
+
+\subaufgabe{b) Methode zum Aufladen des Akkus \\
+Schreibe eine Methode \texttt{AkkuAufladen}, die den Akkustand des Handys um 1\% erhöht.
+}
+
+\subaufgabe{c) Schreibe einen Konstruktor und ToString (schwer)\\
+Überlege dir einen sinnvollen Konstruktor und eine ToString Methode für das Handy.
+}
+
+\end{aufgabe}
+
+\newpage
+
+\begin{aufgabe}{5}{Erstelle eine Anwesenheitsliste}
+
+Erstelle ein Anwesenheitsliste struct. Das struct soll eine Liste an Personen als Attribut haben.
+
+\hint{ Nutze folgendes Person struct}
+\begin{lstlisting}
+struct Person
+{
+    public string Name;
+    
+    public Person(string name)
+    {
+        Name = name;
+    }
+
+    public override string ToString()
+    {
+        return Name;
+    }
+}
+\end{lstlisting}
+
+\subaufgabe{a) Schreibe einen Konstruktor, welcher keine Argumente/Parameter übergeben bekommt}
+
+\subaufgabe{b) Schreibe eine personHinzufügen(Person person) Methode/Funktion}
+
+\subaufgabe{c) Schreibe eine sinnvolle ToString Methode}
+
+\end{aufgabe}
+\end{document}

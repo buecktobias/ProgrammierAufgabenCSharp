@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, xcolor, fancyhdr, enumitem, geometry, listings, titling, setspace}
+\geometry{a4paper, top=2cm, left=2cm, right=2cm, bottom=2cm}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{Programmieren Tutorium}}
+\rhead{\textbf{Tobias Bück, Sam Haghighi}}
+\cfoot{\thepage}
+\fancyfoot[C]{%
+  \raisebox{2em}{\parbox{\textwidth}{%
+      \small © Tobias Bück, CC BY 4.0.%
+  }}%
+  \thepage
+}
+
+% Title customization
+\pretitle{\vspace{-2em} \begin{center}\LARGE\bfseries}
+\posttitle{\end{center}\vspace{-0.5em}}
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+% Custom colors and code style
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{darkblue}{rgb}{0, 0.2, 0.5}
+\definecolor{darkgreen}{rgb}{0, 0.5, 0.2}
+\definecolor{badgecolor}{rgb}{0, 0, 0}
+
+\lstset{
+    backgroundcolor=\color{lightgray},
+    basicstyle=\ttfamily\small,
+    frame=single,
+    breaklines=true,
+    keywordstyle=\color{darkblue}\bfseries,
+    commentstyle=\color{darkgreen}\itshape,
+    language=Python
+}
+
+% Custom command for exercises with numbering and badge
+\newcommand{\exercise}[3]{
+    \section*{Aufgabe #1: #2}
+    \vspace{-0.5em}
+    \begin{spacing}{1.2}
+     #3
+    \end{spacing}
+    \vspace{1em}
+}
+
+% Hint and Example boxes
+\newcommand{\hint}[1]{
+    \vspace{0.5em}
+    \textbf{\textit{Hinweis:}} \textit{#1}
+    \vspace{0.5em}
+}
+
+\newcommand{\example}[2]{
+    \vspace{0.2em}
+    \begin{quote}
+        \textbf{Beispiel:}
+        \begin{description}[align=left]
+            \item[Eingabe:] #1
+            \item[Ausgabe:] #2
+        \end{description}
+    \end{quote}
+    \vspace{0.5em}
+}
+
+% Customizing itemize/enumerate environments
+\setlist[enumerate]{topsep=0.5em, itemsep=0.3em, left=0cm}
+
+\begin{document}
+
+\title{Programmieren Tutorium \\ \large Arbeitsblatt 5}
+\author{}
+\date{}
+\maketitle
+
+% First Exercise with Numbering and Tag
+\exercise{1}{Schleifen - Quadriere Zahlen}{Schreibe ein Programm, das den Benutzer auffordert, eine Zahl einzugeben. Das Programm soll die Zahl so lange quadrieren und das Ergebnis ausgeben, bis das Ergebnis größer als 10.000 ist. Sobald das Ergebnis diesen Wert überschreitet, soll das Programm die Schleife beenden und eine Nachricht ausgeben, dass das Limit erreicht wurde.}
+
+\example{3}{3 9 81 6561}
+
+% Second Exercise with Numbering and Tag
+\exercise{2}{Listen - Einkaufsliste, Element kopieren}{
+Anforderungen:
+\begin{itemize}
+    \item Erstelle eine Liste von string-Elementen, die als Einkaufsliste dient (z. B. \texttt{["Milch", "Brot", "Eier"]}).
+    \item Kopiere das erste Element der Liste und füge es ans Ende der Liste hinzu.
+    \item Gib die aktualisierte Einkaufsliste auf der Konsole aus.
+\end{itemize}
+}
+
+\example{Einkaufsliste: ["Äpfel", "Bananen", "Orangen"]}{["Äpfel", "Bananen", "Orangen", "Äpfel"]}
+
+\hint{Nutze .Add(element) um ein Element einer Liste hinzuzufügen}
+
+\hint{Überprüfe, ob die Liste mindestens ein Element enthält, bevor du das erste Element hinzufügst, um Fehler zu vermeiden.}
+
+
+
+% Third Exercise with Numbering and Tag
+\exercise{3}{Zeichenketten - Ersetze Zeichen im String}{
+Die Variable \texttt{text} ist ein string, der mehrere Zeichen enthält. Ersetze in diesem string jedes Minuszeichen (-) durch ein Pluszeichen (+) und gib den neuen string zurück.
+
+Anforderungen:
+\begin{itemize}
+    \item Verwende den Variablennamen \texttt{text} statt \texttt{txt} für eine bessere Lesbarkeit.
+    \item Iteriere über alle Zeichen im string und ersetze jedes \texttt{-} durch ein \texttt{+}.
+    \item Gib den veränderten string am Ende aus.
+\end{itemize}
+}
+
+\example{text = "Hallo-Welt-Text"}{"Hallo+Welt+Text"}
+
+\hint{Du kannst den string in ein char-Array umwandeln, um über die einzelnen Zeichen zu iterieren und Änderungen vorzunehmen. In C\# geht das zum Beispiel mit \texttt{text.ToCharArray()}.}
+
+% Fourth Exercise with Numbering and Tag
+\exercise{4}{Funktionen - Ausgabe mit Print}{
+Erstelle eine Funktion namens \texttt{Print}, die einen string-Parameter als Eingabe erhält und diesen in einer Zeile auf der Konsole ausgibt. Die Funktion soll keine Rückgabe haben und lediglich den übergebenen Text anzeigen.
+
+Anforderungen:
+\begin{itemize}
+    \item Die Funktion \texttt{Print} soll einen string-Parameter akzeptieren.
+    \item Die Funktion soll den übergebenen string in einer Zeile auf der Konsole ausgeben.
+    \item Es dürfen keine weiteren Funktionen oder Methoden verwendet werden, die das Ausgabeverhalten verändern.
+\end{itemize}
+}
+
+\example{Eingabe: \texttt{"Hallo, Welt!"}}{Hallo, Welt!}
+
+% Fifth Exercise with Numbering and Tag
+\exercise{5}{Funktionen - Addiere und Runde}{
+Schreibe ein Programm, das zwei \texttt{double}-Zahlen einliest, ihre Summe berechnet und das Ergebnis auf die nächste ganze Zahl rundet. Das Programm soll den gerundeten Wert als Ganzzahl zurückgeben.
+
+Anforderungen:
+\begin{itemize}
+    \item Erstelle eine Funktion, die zwei \texttt{double}-Parameter akzeptiert.
+    \item Berechne die Summe der beiden \texttt{double}-Werte.
+    \item Runde das Ergebnis auf die nächste ganze Zahl.
+    \item Gib das gerundete Ergebnis als \texttt{int} zurück.
+\end{itemize}
+}
+
+\example{AddiereUndRunde(3.7, 2.5)}{6}
+
+\hint{Verwende eine Methode zum Runden auf die nächste ganze Zahl (z. B. \texttt{Math.Round} in C\#).}
+
+% Sixth Exercise with Numbering and Tag
+\exercise{6}{Durchschnitt der Zahlen über einem Schwellenwert berechnen}{
+Schreibe eine Funktion \texttt{DurchschnittSchwelle(int[] array, int schwelle)}, die den Durchschnitt der Zahlen berechnet, die über einem bestimmten Schwellenwert liegen.
+
+Anforderungen:
+\begin{itemize}
+    \item Die Funktion \texttt{DurchschnittSchwelle} soll ein Array von Ganzzahlen und einen Schwellenwert als Parameter akzeptieren.
+    \item Summiere nur die Zahlen, die den Schwellenwert überschreiten.
+    \item Berechne und gib den Durchschnitt dieser Zahlen zurück.
+\end{itemize}
+}
+
+\example{Array = [10, 20, 30, 40], Schwelle = 15}{30 \textit{// da nur 20, 30 und 40 größer als 15 sind und deren Durchschnitt 30 ist.}}
+
+\hint{Summiere nur die Zahlen, die den Schwellenwert überschreiten, und zähle sie, um am Ende den Durchschnitt zu berechnen.}
+
+\end{document}

@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, xcolor, fancyhdr, enumitem, geometry, listings, titling, setspace, microtype, titlesec, hyperref, parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{changepage} % For indentation
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{needspace}
+
+\newtcolorbox{notebox}{
+    colback=blue!10!white, 
+    colframe=blue!50!black, 
+    title=Wichtige Information, 
+    fonttitle=\bfseries,
+    boxrule=0.5mm,       % Thickness of the frame
+    arc=3mm,             % Rounding of corners
+    boxsep=6pt,          % Padding inside the box
+    toptitle=2pt,        % Extra space above the title
+    bottomtitle=1pt      % Extra space below the title
+}
+
+\newcommand{\note}[1]{
+    \begin{notebox}
+    #1
+    \end{notebox}
+}
+
+% Page geometry
+\geometry{a4paper, top=2cm, left=1.5cm, right=1.5cm, bottom=2cm}
+
+% Font selection: Modern sans-serif font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault} % Use sans-serif globally
+
+% Header and footer styling
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Programmieren Tutorium}}
+\fancyhead[R]{\textbf{Tobias Bück, Sam Haghighi}}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{%
+  \raisebox{2em}{\parbox{\textwidth}{%
+      \small © Tobias Bück, CC BY 4.0.%
+  }}%
+}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{2pt}
+
+% Title customization
+\pretitle{\vspace{-2em} \begin{center}\LARGE\bfseries}
+\posttitle{\end{center}\vspace{1em}}
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+% Author and date styling
+\renewcommand{\maketitle}{
+    \begin{center}
+        {\LARGE \bfseries \thetitle \par}
+        \vspace{0.25em}
+        {\small Datum: \today \par}
+        \vspace{0.5em}
+    \end{center}
+}
+
+
+
+% Custom colors and refined code style for C#
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{darkblue}{rgb}{0, 0.2, 0.5}
+\definecolor{darkgreen}{rgb}{0, 0.5, 0.2}
+\definecolor{keywordcolor}{rgb}{0, 0.4, 0.8}
+\definecolor{stringcolor}{rgb}{0.5, 0, 0.5}
+\definecolor{commentcolor}{rgb}{0.25, 0.5, 0.25}
+\definecolor{identifiercolor}{rgb}{0.6, 0.2, 0.2}
+
+\lstset{
+    language=[Sharp]C,
+    basicstyle=\small\ttfamily,
+    tabsize=3,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=tb,
+    framesep=6pt,
+    rulecolor=\color{gray},
+    backgroundcolor=\color{lightgray},
+    stringstyle=\color{stringcolor}\ttfamily,
+    commentstyle=\color{commentcolor}\ttfamily,
+    keywordstyle=\color{keywordcolor}\bfseries,
+    identifierstyle=\color{identifiercolor},
+    showstringspaces=false,
+    showspaces=false,
+    showtabs=false,
+    xleftmargin=10pt,
+    framexleftmargin=10pt,
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morekeywords={abstract, event, new, struct, var,
+        as, explicit, null, switch, Console,
+        base, extern, object, this,
+        bool, false, operator, throw,
+        break, finally, out, true,
+        byte, fixed, override, try,
+        case, float, params, typeof,
+        catch, for, private, uint,
+        char, foreach, protected, ulong,
+        checked, goto, public, unchecked,
+        class, if, readonly, unsafe,
+        const, implicit, ref, ushort,
+        continue, in, return, using,
+        decimal, int, sbyte, virtual,
+        default, interface, sealed, volatile,
+        delegate, internal, short, void,
+        do, is, sizeof, while,
+        double, lock, stackalloc,
+        else, long, static,
+        enum, namespace, string},
+}
+
+\newenvironment{aufgabe}[2]
+  {%
+   \needspace{10\baselineskip} 
+   \section*{Aufgabe #1: #2}
+   \vspace{0.5em} % Increased vertical space after the section title
+   \begin{adjustwidth}{1cm}{}  % Indent by 1 cm
+   \setcounter{subaufgabecounter}{0} % Reset subexercise counter for each new exercise
+  }
+  {%
+   \end{adjustwidth}
+  }
+
+\newcounter{subaufgabecounter} % Define a new counter for subexercises
+\renewcommand{\thesubaufgabecounter}{\alph{subaufgabecounter})} % Format: a), b), c), ...
+
+\newcommand{\subaufgabe}[1]{
+    \needspace{6\baselineskip} 
+    \vspace{0.3em} % Vertical space before each subexercise
+    \par % Ensure a new paragraph (new line)
+    \stepcounter{subaufgabecounter} % Increment the counter
+    \textbf{\thesubaufgabecounter}~#1 % Display the label and the subexercise content
+    \vspace{0.5em}
+}
+
+\newcommand{\hint}[1]{
+    \vspace{0.5em}
+    \par
+    \textbf{\textit{Hinweis:}} #1
+    \vspace{0.5em}
+}
+
+\begin{document}
+
+\title{Programmieren Tutorium \\ \large Arbeitsblatt 8}
+\author{Tobias Bück, Sam Haghighi}
+\date{\today}
+\maketitle
+
+\note{Die Aufgaben sollen nicht sequentiell bearbeitet werden, suche dir die Aufgabe rauß die du bearbeiten willst!}
+
+\begin{aufgabe}{L1}{Variablen, Schleifen, Verzweigungen}
+\subaufgabe{Speichere deinen Namen, dein Alter und deine Körpergröße in Metern in Variablen und gib die Werte in der Konsole aus.}
+\hint{Verwende die Datentypen \texttt{string}, \texttt{int} und \texttt{double}.}
+
+\subaufgabe{Speichere das Alter einer Person in einer Variablen. Überprüfe mithilfe von \texttt{if}-Bedingungen, ob die Person: unter 14 Jahre alt ist, zwischen 14 und 16 Jahren alt ist, über 18 Jahre alt ist.}
+\hint{Verwende \texttt{if}, \texttt{else if} und \texttt{else}, um die Bedingungen zu prüfen. Gib die passende Alterskategorie in der Konsole aus.}
+
+\subaufgabe{Schreibe eine \texttt{for}-Schleife, die die Zahlen von 1 bis 10 in der Konsole ausgibt.}
+\hint{Verwende eine \texttt{for} Schleife.}
+
+\subaufgabe{Schreibe ein Programm, das mit einer \texttt{while}-Schleife eine Zahl so lange um 7 erhöht, bis sie mindestens den Wert 20 erreicht. Gib bei jedem Schritt die aktuelle Zahl in der Konsole aus. \\
+Beispiel: beim Start mit 8
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Wert} & \textbf{Bedingung}& \textbf{Ergebnis} \\ \hline
+8             & $8 < 20$ & Ja \\ \hline
+$8 + 2 = 15$)  & $15 < 20$ & Ja \\ \hline
+$15 + 7 = 22$) & $22 < 20$ & Nein \\ \hline
+\end{tabular}
+\caption{Beispiel: Prüfung von Zahlen}
+\label{tab:example}
+\end{table}
+}
+
+\subaufgabe{Schreibe ein Programm, das eine Liste von Zahlen speichert. Gib mithilfe einer Schleife alle Zahlen aus der Liste aus, die gerade sind.}
+\hint{Verwende den Modulo-Operator (\texttt{\%}), um zu prüfen, ob eine Zahl gerade ist.}
+
+\end{aufgabe}
+
+\begin{aufgabe}{S1}{structs und Algorithmen}
+\hint{In C\# wird ein \texttt{struct} wie folgt definiert:}
+\begin{lstlisting}
+public struct NameDesStructs {
+    public TYP AttributName1;
+    public TYP AttributName2;
+}
+\end{lstlisting}
+\subaufgabe{Struct \texttt{Student} mit Note}
+Erstelle eine Struktur \texttt{Student} mit den Attributen \texttt{Note}, \texttt{Name}.
+Die Noten sind folgendermaßen:
+1.0, 1.3, ... 4.7, 5.0 wie an der HKA.
+
+
+\subaufgabe{Schreibe einen Konstruktor\\
+Überlege dir einen sinnvollen Konstruktor
+}
+
+\subaufgabe{Schreibe eine Methode hatBestanden
+Die Methode/Funktion soll angeben ob der Student bestanden hat.
+Alle Noten besser oder gleich 4 sind bestanden.
+Überlege dir einen sinnvollen Rückgabewert.
+Implementiere die Methode
+Teste die Methode.
+}
+\subaufgabe{Berechne die Durchschnitts Note \\
+Du hast eine Liste an Studenten \texttt{students} wie im Beispiel diehe unten.
+Berechne die Durchscnittsnote (mean / arithmetisches mittel)
+}
+\begin{lstlisting}
+List<Student> students = new List<Student>
+        {
+            new Student("Alice", 1.0),
+            new Student("Bob", 2.3),
+            new Student("Anna", 2.3),
+            new Student("Charlie", 3.7),
+            new Student("Jonas", 4.3),
+        };
+\end{lstlisting}
+
+\subaufgabe{Berechne die beste Note \\
+Du hast eine Liste an Studenten, finde heraus was die beste Note ist.
+}
+
+\subaufgabe{Berechne den Anteil an bestandenen Studenten \\
+Du hast eine Liste an Studenten, berechne welcher Prozentsatz bestanden hat.
+}
+
+\subaufgabe{Berechne den Anteil an guten und sehr guten Studenten \\
+gute Note => 1.7 - 2.3 (einschließlich) \\
+sehr gut => 1.0 - 1.3 (einschließlich)\\
+Du hast eine Liste an Studenten, berechne welcher Anteil gut oder sehr gut ist.
+}
+
+
+\subaufgabe{Prüfe ob bestanden \\
+Du hast eine Liste an Studenten, prüfe ob der Student mit dem Namen \textit{studentName} die Klausur bestanden hat. Wenn eine Person nicht in der Liste ist, hat diese nicht an der Klausur teilgenommen und damit auch nicht bestanden.
+}
+\hint{Im Beispiel:
+\\
+Jonas -> nicht bestanden \\
+Bob -> bestanden \\
+Anton -> nicht teilgenommen, also nicht bestanden
+}
+\subaufgabe{Berechne den Mode / Modalwert (sehr schwer!!!)\\
+Der Mode wird im Deutschen als Modalwert bezeichnet. Er ist ein Begriff aus der Statistik und beschreibt den Wert, der in einer Datenreihe am häufigsten vorkommt.
+Du hast eine Liste an Studenten, berechne den Modalwert. Die Note die am häufigsten vorkommt.
+}
+\hint{Im Beispiel von oben ist der Modalwert 2.3}
+\end{aufgabe}
+
+
+\begin{aufgabe}{S2}{Erstelle ein \textttt{KlausurTeilnehmer} struct (schwer)}
+
+Erstelle ein KlausurTeilnehmer-struct. Das struct soll eine Liste an Studenten als Attribut haben.
+
+\hint{Nutze folgendes Student struct}
+\begin{lstlisting}
+struct Student
+{
+    public string Name;
+    public float Grade;
+}
+\end{lstlisting}
+
+\subaufgabe{Schreibe einen Konstruktor, welcher keine Argumente/Parameter übergeben bekommt}
+
+\subaufgabe{Schreibe eine studentHinzufügen(Student person) Methode/Funktion}
+
+\subaufgabe{Schreibe eine Methode bool hatTeilgenommen(string studentName)}
+
+\end{aufgabe}
+\end{document}
